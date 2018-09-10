@@ -1,7 +1,6 @@
 import { createReadStream, ReadStream } from 'fs';
 
 const fetch = require('node-fetch');
-const fs = require('fs');
 
 export class HttpLibrary {
 
