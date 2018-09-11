@@ -27,14 +27,14 @@ program
     }
     else if (cmd === 'get' || cmd === 'GET') {
         console.log('');
-        console.log('Usage: httpc get [-v] [-h key:value] [url]');
+        console.log('Usage: httpc get [url] [-v] [-h key:value]');
         console.log('Get executes a HTTP GET request for a given url.');
         console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
         console.log('    -h key:value    Associates headers to the request with the specified format.');
     }
     else if (cmd === 'post' || cmd === 'POST') {
         console.log('');
-        console.log('Usage: httpc post [-v] [-h key:value] [-d inline-data] [-f file] [url]');
+        console.log('Usage: httpc post [url] [-v] [-h key:value] [-d inline-data] [-f file]');
         console.log('Get executes a HTTP POST request for a given url.');
         console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
         console.log('    -h key:value    Associates headers to the request with the specified format.');

@@ -4,8 +4,7 @@
   "description": "A lab project for COMP 445.",
   "scripts": {
     "test": "test",
-    "build": "tsc",
-    "start": "ts-node index.ts"
+    "build": "tsc"
   },
   "bin": {
     "httpc": "./build/index.js"
@@ -21,8 +20,6 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^2.18.0",
-    "node-fetch": "^2.2.0",
-    "ts-node": "^7.0.1",
     "typescript": "^3.0.3"
   },
   "devDependencies": {

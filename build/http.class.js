@@ -1,74 +1,73 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_1 = require("fs");
-var fetch = require('node-fetch');
 var fs = require('fs');
+var net = require('net');
+var URL = require('url').URL;
 var HttpLibrary = /** @class */ (function () {
     function HttpLibrary() {
     }
-    HttpLibrary.prototype.get = function (verbose, headers, url) {
-        // Parse the headers into a json object
-        var headerObj = {};
+    HttpLibrary.prototype.get = function (verbose, headers, hostStr) {
+        // Create connection
+        var urlObj = new URL(hostStr);
+        var socket = net.createConnection(80, urlObj.hostname);
+        // Parse headers into a string
+        var headerObj = '';
         for (var i = 0; i < headers.length; ++i) {
-            var temp = headers[i].split(':');
-            headerObj[temp[0]] = temp[1];
+            headerObj = headerObj + headers[i];
+            if (i + 1 < headers.length) {
+                headerObj = headerObj + '\r\n';
+            }
         }
-        // Perform the request
-        fetch(url, {
-            method: 'GET',
-            headers: headerObj
-        }).then(function (response) {
-            response.json().then(function (json) {
-                if (verbose) {
-                    console.log('');
-                    console.log('HTTP/' + response.headers.get('via') + ' ' + response.status + ' ' + response.statusText);
-                    console.log('Server: ' + response.headers.get('server'));
-                    console.log('Date: ' + response.headers.get('date'));
-                    console.log('Content-Type: ' + response.headers.get('content-type'));
-                    console.log('Content-Length: ' + response.headers.get('content-length'));
-                    console.log('Connection: ' + response.headers.get('connection'));
-                    console.log('Access-Control-Allow-Origin: ' + response.headers.get('access-control-allow-origin'));
-                    console.log('Access-Control-Allow-Credentials: ' + response.headers.get('access-control-allow-credentials'));
-                }
-                else {
-                    console.log(JSON.stringify(json, null, 4));
-                }
-            });
+        // Overwrite host/connection headers
+        var requestLine = 'GET ' + hostStr + ' HTTP/1.1\r\n' +
+            'Host: ' + urlObj.hostname + '\r\n' +
+            'Connection: close\r\n' +
+            headerObj + '\r\n\r\n';
+        // Socket listeners
+        socket.on('data', function (data) {
+            console.log('');
+            console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+        }).on('connect', function () {
+            socket.write(requestLine);
+        }).on('end', function () {
+            socket.destroy();
+        }).on('error', function (error) {
+            console.log('Error : ' + error);
         });
     };
-    HttpLibrary.prototype.post = function (verbose, headers, url, file, data) {
-        // Parse the headers into a json object
-        var headerObj = {};
+    HttpLibrary.prototype.post = function (verbose, headers, hostStr, file, data) {
+        if (data === void 0) { data = ''; }
+        // Create connection
+        var urlObj = new URL(hostStr);
+        var socket = net.createConnection(80, urlObj.hostname);
+        // Parse headers into a string
+        var headerObj = '';
         for (var i = 0; i < headers.length; ++i) {
-            var temp = headers[i].split(':');
-            headerObj[temp[0]] = temp[1];
+            headerObj = headerObj + headers[i];
+            if (i + 1 < headers.length) {
+                headerObj = headerObj + '\r\n';
+            }
         }
-        // File or data
+        // Parse file if exists
         if (file) {
-            data = fs_1.createReadStream(file);
+            data = fs.readFileSync(file, "utf8");
         }
-        // Perform the request
-        fetch(url, {
-            method: 'POST',
-            headers: headerObj,
-            body: data
-        }).then(function (response) {
-            response.json().then(function (json) {
-                if (verbose) {
-                    console.log('');
-                    console.log('HTTP/' + response.headers.get('via') + ' ' + response.status + ' ' + response.statusText);
-                    console.log('Server: ' + response.headers.get('server'));
-                    console.log('Date: ' + response.headers.get('date'));
-                    console.log('Content-Type: ' + response.headers.get('content-type'));
-                    console.log('Content-Length: ' + response.headers.get('content-length'));
-                    console.log('Connection: ' + response.headers.get('connection'));
-                    console.log('Access-Control-Allow-Origin: ' + response.headers.get('access-control-allow-origin'));
-                    console.log('Access-Control-Allow-Credentials: ' + response.headers.get('access-control-allow-credentials'));
-                }
-                else {
-                    console.log(JSON.stringify(json, null, 4));
-                }
-            });
+        // Overwrite host/connection headers
+        var requestLine = 'POST ' + hostStr + ' HTTP/1.1\r\n' +
+            'Host: ' + urlObj.hostname + '\r\n' +
+            'Connection: close\r\n' +
+            'Content-Length: ' + data.length + '\r\n' +
+            headerObj + '\r\n\r\n' + data;
+        // Socket listeners
+        socket.on('data', function (data) {
+            console.log('');
+            console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+        }).on('connect', function () {
+            socket.write(requestLine);
+        }).on('end', function () {
+            socket.destroy();
+        }).on('error', function (error) {
+            console.log('Error : ' + error);
         });
     };
     return HttpLibrary;
