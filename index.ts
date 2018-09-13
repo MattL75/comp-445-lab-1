@@ -58,10 +58,13 @@ program
     .command('get <host>')
     .description('command to initiate a get request.')
     .option('-v, --verbose', 'Defines verbosity.')
+    .option('-r, --redirect', 'Allow redirects.')
+    .option('-o, --output <output>', 'Output file.')
     .option('-h, --header <header>', 'Request headers.', collect, [])
     .action(function (host, options) {
         const verbose = program.rawArgs.includes('-v');
-        http.get(verbose, options.header, host);
+        const redirect = program.rawArgs.includes('-r');
+        http.get(verbose, redirect, options.header, host, options.output);
     });
 
 // Post command
@@ -69,16 +72,19 @@ program
     .command('post <host>')
     .description('command to initiate a post request.')
     .option('-v, --verbose', 'Defines verbosity.')
+    .option('-r, --redirect', 'Allow redirects.')
     .option('-f, --file <file>', 'File data.')
+    .option('-o, --output <output>', 'Output file.')
     .option('-d, --data <data>', 'Inline data.')
     .option('-h, --header <header>', 'Request headers.', collect, [])
     .action(function (host, options) {
         const verbose = program.rawArgs.includes('-v');
+        const redirect = program.rawArgs.includes('-r');
         if (options.file && options.data) {
             console.log('');
             console.log('Cannot use both -f and -d for a POST request.');
         } else {
-            http.post(verbose, options.header, host, options.file, options.data);
+            http.post(verbose, redirect, options.header, host, options.file, options.data, options.output);
         }
     });
 

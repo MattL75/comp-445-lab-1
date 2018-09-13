@@ -4,7 +4,7 @@ const URL = require('url').URL;
 
 export class HttpLibrary {
 
-    public get(verbose: boolean, headers: string[], hostStr: string): void {
+    public get(verbose: boolean, redirect: boolean, headers: string[], hostStr: string, output?: string): void {
 
         // Create connection
         let urlObj = new URL(hostStr);
@@ -26,9 +26,34 @@ export class HttpLibrary {
             headerObj + '\r\n\r\n';
 
         // Socket listeners
-        socket.on('data', function(data) {
-            console.log('');
-            console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+        socket.on('data', (data) => {
+
+            // Check for redirect
+            if (redirect) {
+                const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+                if (statusCode < 303 && statusCode > 299) {
+                    for (const line of data.toString().split('\r\n').slice(1)) {
+                        const i = line.indexOf(': ');
+                        const k = line.substr(0, i).toLowerCase();
+                        const v = line.substr(i + 2);
+                        if (k.toLocaleLowerCase() === 'location') {
+                            this.get(verbose, redirect, headers, v, output);
+                            return;
+                        }
+                    }
+                    return;
+                }
+            }
+
+            // Standard output operations
+            if (output) {
+                fs.writeFileSync(output, verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+                console.log('');
+                console.log('Output sent to file: ' + output + '.');
+            } else {
+                console.log('');
+                console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+            }
         }).on('connect', function() {
             socket.write(requestLine);
         }).on('end', function() {
@@ -38,7 +63,7 @@ export class HttpLibrary {
         });
     }
 
-    public post(verbose: boolean, headers: string[], hostStr: string, file?: string, data: string = ''): void {
+    public post(verbose: boolean, redirect: boolean, headers: string[], hostStr: string, file?: string, data: string = '', output?: string): void {
         // Create connection
         let urlObj = new URL(hostStr);
         let socket = net.createConnection(80, urlObj.hostname);
@@ -65,9 +90,34 @@ export class HttpLibrary {
             headerObj + '\r\n\r\n' + data;
 
         // Socket listeners
-        socket.on('data', function(data) {
-            console.log('');
-            console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+        socket.on('data', (data) => {
+
+            // Check for redirect
+            if (redirect) {
+                const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+                if (statusCode < 303 && statusCode > 299) {
+                    for (const line of data.toString().split('\r\n').slice(1)) {
+                        const i = line.indexOf(': ');
+                        const k = line.substr(0, i).toLowerCase();
+                        const v = line.substr(i + 2);
+                        if (k.toLocaleLowerCase() === 'location') {
+                            this.post(verbose, redirect, headers, v, output);
+                            return;
+                        }
+                    }
+                    return;
+                }
+            }
+
+            // Standard output operations
+            if (output) {
+                fs.writeFileSync(output, verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+                console.log('');
+                console.log('Output sent to file: ' + output + '.');
+            } else {
+                console.log('');
+                console.log(verbose ? data.toString() : data.toString().split('\r\n\r\n')[1]);
+            }
         }).on('connect', function() {
             socket.write(requestLine);
         }).on('end', function() {
