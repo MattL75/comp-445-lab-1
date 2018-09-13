@@ -39,7 +39,6 @@ export class HttpLibrary {
     }
 
     public post(verbose: boolean, headers: string[], hostStr: string, file?: string, data: string = ''): void {
-
         // Create connection
         let urlObj = new URL(hostStr);
         let socket = net.createConnection(80, urlObj.hostname);

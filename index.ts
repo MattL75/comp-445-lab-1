@@ -29,17 +29,20 @@ program
         } else if (cmd === 'get' || cmd === 'GET') {
             console.log('');
             console.log('Usage: httpc get [url] [-v] [-h key:value]');
+            console.log('');
             console.log('Get executes a HTTP GET request for a given url.');
             console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
             console.log('    -h key:value    Associates headers to the request with the specified format.');
         } else if (cmd === 'post' || cmd === 'POST') {
             console.log('');
             console.log('Usage: httpc post [url] [-v] [-h key:value] [-d inline-data] [-f file]');
+            console.log('');
             console.log('Get executes a HTTP POST request for a given url.');
             console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
             console.log('    -h key:value    Associates headers to the request with the specified format.');
             console.log('    -d string       Associates an inline data to the body of the request.');
             console.log('    -f file         Associates the content of a file to the body of the request.');
+            console.log('');
             console.log('Either [-d] or [-f] can be used, but not both.')
         } else if (cmd === 'help' || cmd === 'HELP') {
             console.log('');
@@ -66,8 +69,8 @@ program
     .command('post <host>')
     .description('command to initiate a post request.')
     .option('-v, --verbose', 'Defines verbosity.')
-    .option('-f, --file <file>', 'Defines verbosity.')
-    .option('-d, --data <data>', 'Defines verbosity.')
+    .option('-f, --file <file>', 'File data.')
+    .option('-d, --data <data>', 'Inline data.')
     .option('-h, --header <header>', 'Request headers.', collect, [])
     .action(function (host, options) {
         const verbose = program.rawArgs.includes('-v');
