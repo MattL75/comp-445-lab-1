@@ -31,6 +31,7 @@
           <entry key="md" value="1" />
           <entry key="ts" value="3" />
           <entry key="txt" value="2" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -41,6 +42,7 @@
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SourceMap" value="2" />
           <entry key="TypeScript" value="3" />
+          <entry key="XML" value="1" />
           <entry key="tsconfig" value="3" />
         </counts>
       </usages-collector>
@@ -51,6 +53,7 @@
           <entry key="md" value="123" />
           <entry key="ts" value="7848" />
           <entry key="txt" value="275" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -59,6 +62,7 @@
           <entry key="Markdown" value="123" />
           <entry key="PLAIN_TEXT" value="289" />
           <entry key="TypeScript" value="7848" />
+          <entry key="XML" value="1" />
           <entry key="tsconfig" value="24" />
         </counts>
       </usages-collector>
@@ -106,8 +110,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            <state relative-caret-position="90">
+              <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -174,6 +178,7 @@
         <option value="$PROJECT_DIR$/output.txt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/index.ts" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
@@ -254,7 +259,7 @@
       <updated>1536436763081</updated>
       <workItem from="1536436764299" duration="21792000" />
       <workItem from="1536676836123" duration="9845000" />
-      <workItem from="1536849895354" duration="8785000" />
+      <workItem from="1536849895354" duration="8867000" />
     </task>
     <task id="LOCAL-00001" summary="settings changes, removed double index transpiled">
       <created>1536542727764</created>
@@ -305,11 +310,18 @@
       <option name="project" value="LOCAL" />
       <updated>1536865995430</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added help message details">
+      <created>1536866062095</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1536866062095</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40422000" />
+    <option name="totallyTimeSpent" value="40504000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -417,10 +429,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-990">
+          <caret line="14" column="58" lean-forward="true" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        <state relative-caret-position="90">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
