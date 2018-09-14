@@ -28,20 +28,19 @@ export class HttpLibrary {
         // Socket listeners
         socket.on('data', (data) => {
 
+            // Extract status code
+            const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+
             // Check for redirect
-            if (redirect) {
-                const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
-                if (statusCode < 303 && statusCode > 299) {
-                    for (const line of data.toString().split('\r\n').slice(1)) {
-                        const i = line.indexOf(': ');
-                        const k = line.substr(0, i).toLowerCase();
-                        const v = line.substr(i + 2);
-                        if (k.toLocaleLowerCase() === 'location') {
-                            this.get(verbose, redirect, headers, v, output);
-                            return;
-                        }
+            if (redirect && statusCode < 303 && statusCode > 299) {
+                for (const line of data.toString().split('\r\n').slice(1)) {
+                    const i = line.indexOf(': ');
+                    const k = line.substr(0, i).toLowerCase();
+                    const v = line.substr(i + 2);
+                    if (k.toLocaleLowerCase() === 'location') {
+                        this.get(verbose, redirect, headers, v, output);
+                        return;
                     }
-                    return;
                 }
             }
 
@@ -92,20 +91,19 @@ export class HttpLibrary {
         // Socket listeners
         socket.on('data', (data) => {
 
+            // Extract status code
+            const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+
             // Check for redirect
-            if (redirect) {
-                const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
-                if (statusCode < 303 && statusCode > 299) {
-                    for (const line of data.toString().split('\r\n').slice(1)) {
-                        const i = line.indexOf(': ');
-                        const k = line.substr(0, i).toLowerCase();
-                        const v = line.substr(i + 2);
-                        if (k.toLocaleLowerCase() === 'location') {
-                            this.post(verbose, redirect, headers, v, output);
-                            return;
-                        }
+            if (redirect && statusCode < 303 && statusCode > 299) {
+                for (const line of data.toString().split('\r\n').slice(1)) {
+                    const i = line.indexOf(': ');
+                    const k = line.substr(0, i).toLowerCase();
+                    const v = line.substr(i + 2);
+                    if (k.toLocaleLowerCase() === 'location') {
+                        this.get(verbose, redirect, headers, v, output);
+                        return;
                     }
-                    return;
                 }
             }
 
