@@ -2,6 +2,9 @@
 
 Goal of the lab is to create an HTTP library using sockets. For this purpose, I have used the 'net' package from Node. Furthermore, we are required to create a CURL-like command-line application.
 
+
+The code is in TypeScript, which is a superset of JavaScript. It runs on Node.js. Instructions on compiling are below, but a working build is currently in the `build` folder.
+
 ### Running the Application
 
 1. Clone the repo.
