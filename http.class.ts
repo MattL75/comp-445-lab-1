@@ -101,7 +101,7 @@ export class HttpLibrary {
                     const k = line.substr(0, i).toLowerCase();
                     const v = line.substr(i + 2);
                     if (k.toLocaleLowerCase() === 'location') {
-                        this.get(verbose, redirect, headers, v, output);
+                        this.post(verbose, redirect, headers, v, file, data, output);
                         return;
                     }
                 }
