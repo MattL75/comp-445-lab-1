@@ -19,10 +19,10 @@
   "author": "Mathieu Lajoie",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.18.0",
-    "typescript": "^3.0.3"
+    "commander": "^2.18.0"
   },
   "devDependencies": {
-    "@types/node": "^10.9.4"
+    "@types/node": "^10.9.4",
+    "typescript": "^3.0.3"
   }
 }
