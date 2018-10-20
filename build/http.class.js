@@ -26,21 +26,19 @@ var HttpLibrary = /** @class */ (function () {
             headerObj + '\r\n\r\n';
         // Socket listeners
         socket.on('data', function (data) {
+            // Extract status code
+            var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
             // Check for redirect
-            if (redirect) {
-                var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
-                if (statusCode < 303 && statusCode > 299) {
-                    for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {
-                        var line = _a[_i];
-                        var i = line.indexOf(': ');
-                        var k = line.substr(0, i).toLowerCase();
-                        var v = line.substr(i + 2);
-                        if (k.toLocaleLowerCase() === 'location') {
-                            _this.get(verbose, redirect, headers, v, output);
-                            return;
-                        }
+            if (redirect && statusCode < 303 && statusCode > 299) {
+                for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {
+                    var line = _a[_i];
+                    var i = line.indexOf(': ');
+                    var k = line.substr(0, i).toLowerCase();
+                    var v = line.substr(i + 2);
+                    if (k.toLocaleLowerCase() === 'location') {
+                        _this.get(verbose, redirect, headers, v, output);
+                        return;
                     }
-                    return;
                 }
             }
             // Standard output operations
@@ -87,21 +85,19 @@ var HttpLibrary = /** @class */ (function () {
             headerObj + '\r\n\r\n' + data;
         // Socket listeners
         socket.on('data', function (data) {
+            // Extract status code
+            var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
             // Check for redirect
-            if (redirect) {
-                var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
-                if (statusCode < 303 && statusCode > 299) {
-                    for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {
-                        var line = _a[_i];
-                        var i = line.indexOf(': ');
-                        var k = line.substr(0, i).toLowerCase();
-                        var v = line.substr(i + 2);
-                        if (k.toLocaleLowerCase() === 'location') {
-                            _this.post(verbose, redirect, headers, v, output);
-                            return;
-                        }
+            if (redirect && statusCode < 303 && statusCode > 299) {
+                for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {
+                    var line = _a[_i];
+                    var i = line.indexOf(': ');
+                    var k = line.substr(0, i).toLowerCase();
+                    var v = line.substr(i + 2);
+                    if (k.toLocaleLowerCase() === 'location') {
+                        _this.post(verbose, redirect, headers, v, file, data, output);
+                        return;
                     }
-                    return;
                 }
             }
             // Standard output operations

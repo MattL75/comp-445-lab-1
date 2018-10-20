@@ -30,18 +30,22 @@ program
         console.log('Usage: httpc get [url] [-v] [-h key:value]');
         console.log('');
         console.log('Get executes a HTTP GET request for a given url.');
-        console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
-        console.log('    -h key:value    Associates headers to the request with the specified format.');
+        console.log('    -v              prints the detail of the response such as protocol, status and headers.');
+        console.log('    -r              allows redirects from http requests.');
+        console.log('    -h key:value    associates headers to the request with the specified format.');
+        console.log('    -o file         sets an output file. Must have extension.');
     }
     else if (cmd === 'post' || cmd === 'POST') {
         console.log('');
         console.log('Usage: httpc post [url] [-v] [-h key:value] [-d inline-data] [-f file]');
         console.log('');
         console.log('Get executes a HTTP POST request for a given url.');
-        console.log('    -v              Prints the detail of the response such as protocol, status and headers.');
-        console.log('    -h key:value    Associates headers to the request with the specified format.');
-        console.log('    -d string       Associates an inline data to the body of the request.');
-        console.log('    -f file         Associates the content of a file to the body of the request.');
+        console.log('    -v              prints the detail of the response such as protocol, status and headers.');
+        console.log('    -r              allows redirects from http requests.');
+        console.log('    -h key:value    associates headers to the request with the specified format.');
+        console.log('    -d string       associates an inline data to the body of the request.');
+        console.log('    -f file         associates the content of a file to the body of the request.');
+        console.log('    -o file         sets an output file. Must have extension.');
         console.log('');
         console.log('Either [-d] or [-f] can be used, but not both.');
     }

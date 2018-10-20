@@ -9,8 +9,9 @@ The code is in TypeScript, which is a superset of JavaScript. It runs on Node.js
 
 1. Clone the repo.
 2. Run `npm install`.
-1. Run `tsc` to compile.
-2. Run `httpc help`.
+5. Run `tsc` to compile.
+4. Run `npm link`.
+5. Run `httpc help`.
 
 # Usage
 

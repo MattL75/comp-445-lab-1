@@ -1,0 +1,18 @@
+{
+  "args": {}, 
+  "data": "{\"Assignment\": 345, \"Tutor\": \"JohnDoe\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Connection": "close", 
+    "Content-Length": "39", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org"
+  }, 
+  "json": {
+    "Assignment": 345, 
+    "Tutor": "JohnDoe"
+  }, 
+  "origin": "132.205.229.167", 
+  "url": "http://httpbin.org/post"
+}
