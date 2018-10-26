@@ -8,7 +8,7 @@ export class HttpLibrary {
 
         // Create connection
         let urlObj = new URL(hostStr);
-        let socket = net.createConnection(80, urlObj.hostname);
+        let socket = net.createConnection(urlObj.port ? urlObj.port : 80, urlObj.hostname);
 
         // Parse headers into a string
         let headerObj = '';

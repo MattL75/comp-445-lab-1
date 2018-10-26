@@ -10,7 +10,7 @@ var HttpLibrary = /** @class */ (function () {
         var _this = this;
         // Create connection
         var urlObj = new URL(hostStr);
-        var socket = net.createConnection(80, urlObj.hostname);
+        var socket = net.createConnection(urlObj.port ? urlObj.port : 80, urlObj.hostname);
         // Parse headers into a string
         var headerObj = '';
         for (var i = 0; i < headers.length; ++i) {
