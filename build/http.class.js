@@ -27,7 +27,7 @@ var HttpLibrary = /** @class */ (function () {
         // Socket listeners
         socket.on('data', function (data) {
             // Extract status code
-            var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+            var statusCode = parseInt(data.toString().split('\r\n')[0].split(' ')[1]);
             // Check for redirect
             if (redirect && statusCode < 303 && statusCode > 299) {
                 for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {
@@ -64,7 +64,7 @@ var HttpLibrary = /** @class */ (function () {
         if (data === void 0) { data = ''; }
         // Create connection
         var urlObj = new URL(hostStr);
-        var socket = net.createConnection(80, urlObj.hostname);
+        var socket = net.createConnection(urlObj.port ? urlObj.port : 80, urlObj.hostname);
         // Parse headers into a string
         var headerObj = '';
         for (var i = 0; i < headers.length; ++i) {
@@ -86,7 +86,7 @@ var HttpLibrary = /** @class */ (function () {
         // Socket listeners
         socket.on('data', function (data) {
             // Extract status code
-            var statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+            var statusCode = parseInt(data.toString().split('\r\n')[0].split(' ')[1]);
             // Check for redirect
             if (redirect && statusCode < 303 && statusCode > 299) {
                 for (var _i = 0, _a = data.toString().split('\r\n').slice(1); _i < _a.length; _i++) {

@@ -29,7 +29,7 @@ export class HttpLibrary {
         socket.on('data', (data) => {
 
             // Extract status code
-            const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+            const statusCode = parseInt(data.toString().split('\r\n')[0].split(' ')[1]);
 
             // Check for redirect
             if (redirect && statusCode < 303 && statusCode > 299) {
@@ -65,7 +65,7 @@ export class HttpLibrary {
     public post(verbose: boolean, redirect: boolean, headers: string[], hostStr: string, file?: string, data: string = '', output?: string): void {
         // Create connection
         let urlObj = new URL(hostStr);
-        let socket = net.createConnection(80, urlObj.hostname);
+        let socket = net.createConnection(urlObj.port ? urlObj.port : 80, urlObj.hostname);
 
         // Parse headers into a string
         let headerObj = '';
@@ -92,7 +92,7 @@ export class HttpLibrary {
         socket.on('data', (data) => {
 
             // Extract status code
-            const statusCode = parseInt(data.toString().split('\r\n')[0].match(/^HTTP\/1\.[01] ([0-9]{3}) (.*)$/)[1], 10);
+            const statusCode = parseInt(data.toString().split('\r\n')[0].split(' ')[1]);
 
             // Check for redirect
             if (redirect && statusCode < 303 && statusCode > 299) {
